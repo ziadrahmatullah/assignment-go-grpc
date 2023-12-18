@@ -1,19 +1,65 @@
 proto < ../proto/transaction.proto
 @host=localhost:50051
 {{+
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMCwiaXNzIjoibG9jYWxob3N0IiwiZXhwIjoxNzAyODg2OTEwLCJpYXQiOjE3MDI4ODMzMTB9.8zRixst0LdzBx9NpzeKcef37YSo8h8j3nlgmEKZ982g"
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJpc3MiOiJsb2NhbGhvc3QiLCJleHAiOjE3MDI5MDA1MzAsImlhdCI6MTcwMjg5NjkzMH0.fWoi-92623FE1YSVWldYAQPlJ6evbQ57U8y1Zn26uMU"
   exports.defaultHeaders = {
     'Content-Type': 'text/html',
     'Authorization': `Bearer ${token}`
   };
 }}
-### Success GetAllTransactions
+### GetAllTransactions Default
 GRPC /TransactionService/GetAllTransactions
 ...defaultHeaders
 {
 }
 
-### Success Transfer
+### GetAllTransactions Search
+GRPC /TransactionService/GetAllTransactions
+...defaultHeaders
+{
+  "search":"top"
+}
+
+### GetAllTransactions filter
+GRPC /TransactionService/GetAllTransactions
+...defaultHeaders
+{
+  "filterStart":"2023-01-01",
+  "filterEnd":"2023-12-20"
+}
+
+### GetAllTransactions Invalid Filter fromat
+GRPC /TransactionService/GetAllTransactions
+...defaultHeaders
+{
+  "filterEnd":"2023-01-01"
+}
+
+### GetAllTransactions SortBy
+GRPC /TransactionService/GetAllTransactions
+...defaultHeaders
+{
+  "sortBy":"amount",
+  "sortType":"asc"
+}
+
+### GetAllTransactions pagination
+GRPC /TransactionService/GetAllTransactions
+...defaultHeaders
+{
+  "paginationLimit":1
+}
+
+### GetAllTransactions pagination
+GRPC /TransactionService/GetAllTransactions
+...defaultHeaders
+{
+  "paginationLimit":1,
+  "paginationPage":3
+}
+
+
+### Transfer Success
 GRPC /TransactionService/Transfer
 ...defaultHeaders
 {
@@ -21,10 +67,57 @@ GRPC /TransactionService/Transfer
     "amount": "1000"
 }
 
-### Success TopUp
+### Transfer Invalid Amount
+GRPC /TransactionService/Transfer
+...defaultHeaders
+{
+    "walletNumber": "7000000000002",
+    "amount": 100
+}
+
+### Transfer Invalid Wallet Number
+GRPC /TransactionService/Transfer
+...defaultHeaders
+{
+    "walletNumber": "70000000002",
+    "amount": 10000
+}
+
+### Transfer Invalid Body
+GRPC /TransactionService/Transfer
+...defaultHeaders
+{
+    "walletNumber": "70000000002"
+}
+
+### TopUp Success
 GRPC /TransactionService/TopUp
 ...defaultHeaders
 {
-    "amount":"100000",
+    "amount":100000.000001,
     "sourceOfFund": "Cash"
+}
+
+### TopUp Invalid Amount
+GRPC /TransactionService/TopUp
+...defaultHeaders
+{
+    "amount":10000000.000001,
+    "sourceOfFund": "Cash"
+}
+
+### TopUp Invalid Source Of Funds
+GRPC /TransactionService/TopUp
+...defaultHeaders
+{
+    "amount":1000000.000001,
+    "sourceOfFund": "Cashss"
+}
+
+### TopUp Invalid Body
+GRPC /TransactionService/TopUp
+...defaultHeaders
+{
+    "amount":1000000.000001,
+    "sourceOfFund": ""
 }

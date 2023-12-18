@@ -1,0 +1,52 @@
+proto < ./../proto/calculator.proto
+@host=localhost:50051
+{{+
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJpc3MiOiJsb2NhbGhvc3QiLCJleHAiOjE3MDI5MDMyODYsImlhdCI6MTcwMjg5OTY4Nn0.SIVh3DwKdF4xEk9wlwUbZb3O7lzSUp0E2IzPFns92E0"
+  exports.defaultHeaders = {
+    'Content-Type': 'text/html',
+    'Authorization': `Bearer ${token}`
+  };
+}}
+### Success
+GRPC /EmergencyFundsService/CalculateEmergencyFunds
+...defaultHeaders
+{
+    "monthlyIncome": "5000000",
+    "monthlyExpense": "3500000",
+    "financialResponsibilities": "0",
+    "maritalStatus": "Single",
+    "numberOfChildren": 0
+}
+
+### Invalid Marital Status
+GRPC /EmergencyFundsService/CalculateEmergencyFunds
+...defaultHeaders
+{
+    "monthlyIncome": "5000000",
+    "monthlyExpense": "3500000",
+    "financialResponsibilities": "0",
+    "maritalStatus": "Singlle",
+    "numberOfChildren": 0
+}
+
+### Invalid numberOfChildren
+GRPC /EmergencyFundsService/CalculateEmergencyFunds
+...defaultHeaders
+{
+    "monthlyIncome": "5000000",
+    "monthlyExpense": "3500000",
+    "financialResponsibilities": "0",
+    "maritalStatus": "Married",
+    "numberOfChildren": -1
+}
+
+### Invalid monthlyIncome
+GRPC /EmergencyFundsService/CalculateEmergencyFunds
+...defaultHeaders
+{
+    "monthlyIncome": "-5000000",
+    "monthlyExpense": "2500000",
+    "financialResponsibilities": "1000000",
+    "maritalStatus": "Married",
+    "numberOfChildren": 3
+}

@@ -38,7 +38,7 @@ message TransactionRes{
 
 message TransactionPaginationRes{
     repeated TransactionRes data = 1;
-    int32 total_date = 2;
+    int32 total_data = 2;
     int32 total_page = 3;
     int32 page = 4;
 }

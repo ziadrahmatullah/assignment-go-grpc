@@ -1,19 +1,48 @@
 proto < ../proto/auth.proto
 @host=localhost:50051
 
-### Success
+### Register Success
 GRPC /AuthService/Register
 {
-    "name":"Felix",
-    "currentJob": "Job Researcher",
-    "age": 18,
-    "email":"felix@gmail.com",
-    "password":"felix123"
+    "name":"Felis",
+    "birthdate":"2001-03-03",
+    "email":"felis@gmail.com",
+    "password":"felis123"
 }
 
-### Success
+### Register Invalid Body
+GRPC /AuthService/Register
+{
+    "name":"Felis",
+    "birthdate":"2001-03-03",
+    "email":"feligmail.com",
+    "password":"felis123"
+}
+
+### Login Success
 GRPC /AuthService/Login
 {
-    "email":"felix@gmail.com",
-    "password": "felix123"
+    "email":"felis@gmail.com",
+    "password": "felis123"
+}
+
+### Login invalid password
+GRPC /AuthService/Login
+{
+    "email":"felis@gmail.com",
+    "password": "felis23"
+}
+
+### Login Invalid Email
+GRPC /AuthService/Login
+{
+    "email":"feli@gmail.om",
+    "password": "felis123"
+}
+
+### Login Invalid Body
+GRPC /AuthService/Login
+{
+    "email":"feligmail.om",
+    "password": "felis123"
 }

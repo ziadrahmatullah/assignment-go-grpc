@@ -84,7 +84,10 @@ func ToMaritalStatusEnum(input constant.MaritalStatuses) (res pb.MaritalStatus) 
 	return
 }
 
-func IsValidNumChildren(noc uint, input constant.MaritalStatuses) bool {
+func IsValidNumChildren(noc int32, input constant.MaritalStatuses) bool {
+	if noc < 0{
+		return false
+	}
 	if input == constant.SINGLE {
 		if noc == 0 {
 			return true
@@ -97,4 +100,8 @@ func IsValidNumChildren(noc uint, input constant.MaritalStatuses) bool {
 
 func IsValidDecimal(input decimal.Decimal) bool {
 	return !input.LessThan(decimal.Zero) 
+}
+
+func IsValidMaritalStatus(input string) bool{
+	return (input == string(constant.MARRIED) || input == string(constant.SINGLE))
 }

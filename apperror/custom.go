@@ -106,4 +106,5 @@ var (
 	ErrInvalidMonthlyIncome      = NewCustomError(http.StatusBadRequest, "invalid monthly income")
 	ErrInvalidMonthlyExpense     = NewCustomError(http.StatusBadRequest, "invalid monthly expense")
 	ErrInvalidFinancialAbilities = NewCustomError(http.StatusBadRequest, "invalid financial abilities")
+	ErrInvalidMaritalStatus      = NewCustomError(http.StatusBadRequest, "invalid marital status")
 )

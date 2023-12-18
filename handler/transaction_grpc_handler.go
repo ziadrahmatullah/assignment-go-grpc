@@ -59,7 +59,7 @@ func (h *TransactionGRPCHandler) GetAllTransactions(ctx context.Context, req *pb
 
 	return &pb.TransactionPaginationRes{
 		Data:      txRes.Data,
-		TotalDate: int32(res.TotalData),
+		TotalData: int32(res.TotalData),
 		TotalPage: int32(res.TotalPage),
 		Page:      int32(res.Page),
 	}, nil

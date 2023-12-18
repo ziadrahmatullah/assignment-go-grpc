@@ -9,10 +9,10 @@ import (
 )
 
 type RegisterReq struct {
-	Name      string `binding:"required" json:"name"`
-	Birthdate string `binding:"required" json:"birthdate"`
-	Email     string `binding:"required" json:"email"`
-	Password  string `binding:"required" json:"password"`
+	Name      string `binding:"required" json:"name" validate:"required"`
+	Birthdate string `binding:"required" json:"birthdate" validate:"required"`
+	Email     string `binding:"required" json:"email" validate:"required,email"`
+	Password  string `binding:"required" json:"password" validate:"required"`
 }
 
 type RegisterRes struct {
@@ -23,8 +23,8 @@ type RegisterRes struct {
 }
 
 type LoginReq struct {
-	Email    string `binding:"required" json:"email"`
-	Password string `binding:"required" json:"password"`
+	Email    string `binding:"required,email" json:"email" validate:"required,email"`
+	Password string `binding:"required" json:"password" validate:"required"`
 }
 
 type LoginRes struct {

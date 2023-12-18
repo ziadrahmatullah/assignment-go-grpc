@@ -14,6 +14,7 @@ message EmergencyFundsReq{
 
 message EmergencyFundsRes{
     string recommended_funds = 1;
+    string marital_status = 2;
 }
 
 service EmergencyFundsService{

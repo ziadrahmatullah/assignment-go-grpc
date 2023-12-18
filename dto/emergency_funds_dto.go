@@ -6,9 +6,9 @@ import (
 )
 
 type EmergencyFundsReq struct {
-	MonthlyIncome             decimal.Decimal          `validate:"required"`
-	MonthlyExpense            decimal.Decimal          `validate:"required"`
-	FinancialResponsibilities decimal.Decimal          `validate:"required"`
-	MaritalStatus             constant.MaritalStatuses `validate:"required"`
-	NumberOfChildren          uint                     `validate:"required"`
+	MonthlyIncome             decimal.Decimal          `binding:"required" validate:"required"`
+	MonthlyExpense            decimal.Decimal          `binding:"required" validate:"required"`
+	FinancialResponsibilities decimal.Decimal          `binding:"required" validate:"required"`
+	MaritalStatus             constant.MaritalStatuses `binding:"required" validate:"required"`
+	NumberOfChildren          *uint32                  `binding:"required,min=0" validate:"required,min=0"`
 }

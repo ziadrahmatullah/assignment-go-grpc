@@ -58,7 +58,8 @@ func (tr *transactionRepository) FindListTransaction(ctx context.Context, req dt
 	}
 	var transactions []model.Transaction
 	var totalData int
-	rawCount := "SELECT count(*) FROM transactions " + searchSql + filterSql
+	rawCount := fmt.Sprintf( "SELECT count(*) FROM transactions where wallet_id = %d ", uid)
+	rawCount += searchSql + filterSql
 	raw += searchSql + filterSql + sortSql + paginationSql
 	err = tr.db.WithContext(ctx).Model(&model.Transaction{}).Raw(rawCount).Scan(&totalData).Error
 	if err != nil {
@@ -116,6 +117,7 @@ func (tr *transactionRepository) SortByTransaction(sortByWord, sort *string) (sq
 	var valSortType string
 	var valSortBy string
 	var ok bool
+	var ok2 bool
 	if sortByWord == nil || *sortByWord == "" {
 		valSortBy = sortBy["date"]
 	}else{
@@ -127,8 +129,8 @@ func (tr *transactionRepository) SortByTransaction(sortByWord, sort *string) (sq
 	if *sort == "" || sort == nil {
 		valSortType = sortType["desc"]
 	} else {
-		valSortType, ok = sortType[*sort]
-		if !ok {
+		valSortType, ok2 = sortType[*sort]
+		if !ok2 {
 			return "", apperror.ErrSortTypeTrasacntionQueqry
 		}
 	}
