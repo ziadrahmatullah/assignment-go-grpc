@@ -22,20 +22,26 @@ func main() {
 	if err := godotenv.Load(); err != nil {
 		log.Println("no env got")
 	}
-	db := database.ConnectDB()
-	validator := appvalidator.NewAppValidatorImpl()
-	appvalidator.SetValidator(validator)
+	db, err := database.ConnectDB()
+	if err != nil{
+		log.Println(err.Error())
+	}
+	v := appvalidator.NewAppValidatorImpl()
+	appvalidator.SetValidator(v)
 
 	wr := repository.NewWalletRepository(db)
 	ar := repository.NewAttemptRepository(db)
 
 	ur := repository.NewUserRepository(db)
 	uu := usecase.NewUserUsecase(ur, wr, ar)
-	uh := handler.NewAuthGRPCHandler(uu, validator)
+	uh := handler.NewAuthGRPCHandler(uu, v)
 
 	tr := repository.NewTransactionRepository(db)
 	tu := usecase.NewTransactionUsecase(tr, wr)
-	th := handler.NewTransactionGRPCHandler(tu, validator)
+	th := handler.NewTransactionGRPCHandler(tu, v)
+
+	eu := usecase.NewEmergencyFundsUsecase()
+	eh := handler.NewEmergencyFundsGRPCHandler(eu, v)
 
 	list, err := net.Listen("tcp", ":50051")
 	if err != nil {
@@ -50,6 +56,7 @@ func main() {
 
 	pb.RegisterAuthServiceServer(server, uh)
 	pb.RegisterTransactionServiceServer(server, th)
+	pb.RegisterEmergencyFundsServiceServer(server, eh)
 
 	log.Println("starting grpc server")
 

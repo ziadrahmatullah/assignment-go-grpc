@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package calculator;
+
+option go_package = "./pb";
+
+message EmergencyFundsReq{
+    string monthly_income = 1;
+    string monthly_expense = 2;
+    string financial_responsibilities = 3;
+    string marital_status = 4;
+    uint32 number_of_children = 5;
+}
+
+message EmergencyFundsRes{
+    string recommended_funds = 1;
+}
+
+service EmergencyFundsService{
+    rpc CalculateEmergencyFunds(EmergencyFundsReq) returns (EmergencyFundsRes);
+}

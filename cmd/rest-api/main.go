@@ -22,7 +22,11 @@ func main() {
 	if err := godotenv.Load(); err != nil {
 		log.Println("no env got")
 	}
-	db := database.ConnectDB()
+	
+	db, err := database.ConnectDB()
+	if err != nil{
+		log.Println(err.Error())
+	}
 
 	addr := os.Getenv("APP_PORT")
 

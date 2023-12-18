@@ -6,6 +6,9 @@ import (
 	"strings"
 	"time"
 
+	pb "git.garena.com/sea-labs-id/bootcamp/batch-02/ziad-rahmatullah/assignment-go-rest-api/pb/emergency-funds"
+
+	"git.garena.com/sea-labs-id/bootcamp/batch-02/ziad-rahmatullah/assignment-go-rest-api/constant"
 	"git.garena.com/sea-labs-id/bootcamp/batch-02/ziad-rahmatullah/assignment-go-rest-api/model"
 	"github.com/shopspring/decimal"
 )
@@ -70,4 +73,28 @@ func ToSourceOfFundEnum(input model.SourceOfFunds) (res string) {
 		return string(model.Reward)
 	}
 	return
+}
+
+func ToMaritalStatusEnum(input constant.MaritalStatuses) (res pb.MaritalStatus) {
+	if input == constant.MARRIED {
+		return pb.MaritalStatus_MARITAL_STATUS_MARRIED
+	} else if input == constant.SINGLE {
+		return pb.MaritalStatus_MARITAL_STATUS_SINGLE
+	}
+	return
+}
+
+func IsValidNumChildren(noc uint, input constant.MaritalStatuses) bool {
+	if input == constant.SINGLE {
+		if noc == 0 {
+			return true
+		} else {
+			return false
+		}
+	}
+	return true
+}
+
+func IsValidDecimal(input decimal.Decimal) bool {
+	return !input.LessThan(decimal.Zero) 
 }

@@ -98,4 +98,12 @@ var (
 
 	ErrInvalidAuthHeader = NewCustomError(http.StatusUnauthorized, "invalid auth header")
 	ErrInvalidJWTToken   = NewCustomError(http.StatusUnauthorized, "invalid jwt token")
+
+	ErrCantConnectDatabase       = NewCustomError(http.StatusInternalServerError, "can't connect database")
+	ErrCantConnectToThirdParty   = NewCustomError(http.StatusInternalServerError, "can't connect to third party")
+	ErrFailedToRequstThirdParty  = NewCustomError(http.StatusInternalServerError, "failed to request third party")
+	ErrInvalidChildren           = NewCustomError(http.StatusBadRequest, "invalid children")
+	ErrInvalidMonthlyIncome      = NewCustomError(http.StatusBadRequest, "invalid monthly income")
+	ErrInvalidMonthlyExpense     = NewCustomError(http.StatusBadRequest, "invalid monthly expense")
+	ErrInvalidFinancialAbilities = NewCustomError(http.StatusBadRequest, "invalid financial abilities")
 )

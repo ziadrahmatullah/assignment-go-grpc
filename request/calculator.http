@@ -1,5 +1,5 @@
 proto < ./../proto/calculator_service.proto
-@host=http://localhost:8082
+@host=http://localhost:8081
 
 ###
 GRPC /CalculatorService/CalculateEmergencyFunds 
