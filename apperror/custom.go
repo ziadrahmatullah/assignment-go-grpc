@@ -2,6 +2,9 @@ package apperror
 
 import (
 	"net/http"
+
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 type CustomError struct {
@@ -28,6 +31,15 @@ func (ce *CustomError) ToErrorRes() ErrorRes {
 	return ErrorRes{
 		Message: ce.Message,
 	}
+}
+
+func (ce *CustomError) ToGrpcError() error {
+	errorMapper := map[int]codes.Code{
+		http.StatusInternalServerError: codes.Internal,
+		http.StatusBadRequest:          codes.InvalidArgument,
+		http.StatusUnauthorized:        codes.PermissionDenied,
+	}
+	return status.Error(errorMapper[ce.Code], ce.Message)
 }
 
 var (
@@ -83,4 +95,7 @@ var (
 	ErrInvalidAmount            = NewCustomError(http.StatusBadRequest, "invalid amount")
 	ErrInvalidBody              = NewCustomError(http.StatusBadRequest, "invalid body")
 	ErrUnauthorize              = NewCustomError(http.StatusUnauthorized, "unauthorized")
+
+	ErrInvalidAuthHeader = NewCustomError(http.StatusUnauthorized, "invalid auth header")
+	ErrInvalidJWTToken   = NewCustomError(http.StatusUnauthorized, "invalid jwt token")
 )
