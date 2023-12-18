@@ -42,7 +42,8 @@ func main() {
 	tu := usecase.NewTransactionUsecase(tr, wr)
 	th := handler.NewTransactionGRPCHandler(tu, v)
 
-	eu := usecase.NewEmergencyFundsUsecase()
+	er := repository.NewCalculatorRepository()
+	eu := usecase.NewEmergencyFundsUsecase(er)
 	eh := handler.NewEmergencyFundsGRPCHandler(eu, v)
 
 	list, err := net.Listen("tcp", ":50051")
@@ -54,6 +55,7 @@ func main() {
 		middleware.LoggerInterceptor,
 		middleware.ErrorInterceptor,
 		middleware.AuthInterceptor,
+		middleware.WithTimeoutInterceptor,
 	))
 
 	pb.RegisterAuthServiceServer(server, uh)

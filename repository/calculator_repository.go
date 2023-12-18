@@ -1,4 +1,4 @@
-package client
+package repository
 
 import (
 	"context"
@@ -10,7 +10,18 @@ import (
 	"google.golang.org/grpc"
 )
 
-func CalculateThirdService(req dto.EmergencyFundsReq) (*pb.CalculateEmergencyFundsResponse, error) {
+type CalculatorRepository interface {
+	CalculateThirdService(dto.EmergencyFundsReq) (*pb.CalculateEmergencyFundsResponse, error)
+}
+
+type calulatorRepository struct {
+}
+
+func NewCalculatorRepository() CalculatorRepository {
+	return &calulatorRepository{}
+}
+
+func (cr *calulatorRepository) CalculateThirdService(req dto.EmergencyFundsReq) (*pb.CalculateEmergencyFundsResponse, error) {
 	conn, err := grpc.Dial("localhost:8081", grpc.WithInsecure())
 	if err != nil {
 		return nil, apperror.ErrCantConnectToThirdParty
