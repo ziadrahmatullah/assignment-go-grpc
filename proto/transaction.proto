@@ -26,21 +26,10 @@ message TransferReq{
 }
 
 message TransactionRes{
-    enum TRANSACTION_TYPES{
-        TRANSFER = 0;
-        TOP_UP = 1;
-        GAME_REWARD = 2;
-    }
-    enum SOURCE_OF_FUNDS{
-        BANK_TRANSFER = 0;
-        CREDIT_CARD = 1;
-        CASH = 2;
-        REWARD = 3;
-    }
     uint32 id = 1;
     string created_at = 2;
-    TRANSACTION_TYPES transaction_type = 3;
-    SOURCE_OF_FUNDS source_of_fund = 4;
+    string transaction_type = 3;
+    string source_of_fund = 4;
     string sender = 5;
     string receiver = 6;
     string amount = 7;

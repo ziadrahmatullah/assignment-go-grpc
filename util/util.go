@@ -7,7 +7,6 @@ import (
 	"time"
 
 	"git.garena.com/sea-labs-id/bootcamp/batch-02/ziad-rahmatullah/assignment-go-rest-api/model"
-	"git.garena.com/sea-labs-id/bootcamp/batch-02/ziad-rahmatullah/assignment-go-rest-api/pb"
 	"github.com/shopspring/decimal"
 )
 
@@ -49,26 +48,26 @@ func IsTransferAmountValid(amount decimal.Decimal) bool {
 	return true
 }
 
-func ToTransactionTypeEnum(input model.TransactionTypes) (res pb.TransactionRes_TRANSACTION_TYPES) {
+func ToTransactionTypeEnum(input model.TransactionTypes) (res string) {
 	if input == model.Transfer {
-		return pb.TransactionRes_TRANSFER
+		return string(model.Transfer)
 	} else if input == model.TopUp {
-		return pb.TransactionRes_TOP_UP
+		return string(model.TopUp)
 	} else if input == model.GameReward {
-		return pb.TransactionRes_GAME_REWARD
+		return string(model.GameReward)
 	}
 	return
 }
 
-func ToSourceOfFundEnum(input model.SourceOfFunds) (res pb.TransactionRes_SOURCE_OF_FUNDS) {
+func ToSourceOfFundEnum(input model.SourceOfFunds) (res string) {
 	if input == model.BankTransfer {
-		return pb.TransactionRes_BANK_TRANSFER
+		return string(model.BankTransfer)
 	} else if input == model.CreditCard {
-		return pb.TransactionRes_CREDIT_CARD
+		return string(model.CreditCard)
 	} else if input == model.Cash {
-		return pb.TransactionRes_CASH
+		return string(model.Cash)
 	} else if input == model.Reward {
-		return pb.TransactionRes_REWARD
+		return string(model.Reward)
 	}
 	return
 }

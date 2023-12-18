@@ -46,11 +46,13 @@ func (h *TransactionGRPCHandler) GetAllTransactions(ctx context.Context, req *pb
 			Id:              uint32(tx.ID),
 			CreatedAt:       tx.CreatedAt.Format("2006-01-02"),
 			TransactionType: util.ToTransactionTypeEnum(tx.TransactionType),
-			SourceOfFund:    util.ToSourceOfFundEnum(*tx.SourceOfFund),
 			Sender:          tx.Sender,
 			Receiver:        tx.Receiver,
 			Amount:          tx.Amount.String(),
 			Description:     tx.Description,
+		}
+		if tx.SourceOfFund != nil {
+			txG.SourceOfFund = util.ToSourceOfFundEnum(*tx.SourceOfFund)
 		}
 		txRes.Data = append(txRes.Data, &txG)
 	}

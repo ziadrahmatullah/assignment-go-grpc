@@ -1,0 +1,30 @@
+proto < ../proto/transaction.proto
+@host=localhost:50051
+{{+
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMCwiaXNzIjoibG9jYWxob3N0IiwiZXhwIjoxNzAyODg2OTEwLCJpYXQiOjE3MDI4ODMzMTB9.8zRixst0LdzBx9NpzeKcef37YSo8h8j3nlgmEKZ982g"
+  exports.defaultHeaders = {
+    'Content-Type': 'text/html',
+    'Authorization': `Bearer ${token}`
+  };
+}}
+### Success GetAllTransactions
+GRPC /TransactionService/GetAllTransactions
+...defaultHeaders
+{
+}
+
+### Success Transfer
+GRPC /TransactionService/Transfer
+...defaultHeaders
+{
+    "walletNumber": "7000000000002",
+    "amount": "1000"
+}
+
+### Success TopUp
+GRPC /TransactionService/TopUp
+...defaultHeaders
+{
+    "amount":"100000",
+    "sourceOfFund": "Cash"
+}

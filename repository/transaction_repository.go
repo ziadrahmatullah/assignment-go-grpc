@@ -42,7 +42,7 @@ func NewTransactionRepository(db *gorm.DB) TransactionRepository {
 }
 
 func (tr *transactionRepository) FindListTransaction(ctx context.Context, req dto.ListTransactionsReq, uid uint) (*dto.TransactionPaginationRes, error) {
-	raw := fmt.Sprintf("SELECT * FROM transactions where id = %d", uid)
+	raw := fmt.Sprintf("SELECT * FROM transactions where wallet_id = %d ", uid)
 	searchSql := tr.SearchTransaction(req.Search)
 	filterSql, err := tr.FilterTransaction(req.FilterStart, req.FilterEnd)
 	if err != nil {
@@ -113,17 +113,17 @@ func (tr *transactionRepository) FilterTransaction(start, end *string) (sql stri
 }
 
 func (tr *transactionRepository) SortByTransaction(sortByWord, sort *string) (sql string, err error) {
-	if (sortByWord == nil || *sortByWord == "") && (*sort == "" || sort == nil){
-		return "", nil
-	}
-	if (sortByWord == nil || *sortByWord == "") && (*sort != "" || sort != nil){
-		return "", apperror.ErrInvalidSortFormat
-	}
-	valSortBy, ok := sortBy[*sortByWord]
-	if !ok {
-		return "", apperror.ErrSortByTransactionQuery
-	}
 	var valSortType string
+	var valSortBy string
+	var ok bool
+	if sortByWord == nil || *sortByWord == "" {
+		valSortBy = sortBy["date"]
+	}else{
+		valSortBy, ok = sortBy[*sortByWord]
+		if !ok {
+			return "", apperror.ErrSortByTransactionQuery
+		}
+	}
 	if *sort == "" || sort == nil {
 		valSortType = sortType["desc"]
 	} else {
