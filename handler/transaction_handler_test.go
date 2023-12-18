@@ -75,7 +75,7 @@ func TestHandleGetTransactions(t *testing.T) {
 		rec := httptest.NewRecorder()
 		c, _ := gin.CreateTestContext(rec)
 		c.Request, _ = http.NewRequest(http.MethodGet, "/transactions", nil)
-		tu.On("GetTransactions", c, mock.AnythingOfType("dto.ListTransactionsReq")).Return(&transactionsRes, nil)
+		tu.On("GetTransactions", c, mock.AnythingOfType("dto.ListTransactionsReq"), mock.Anything).Return(&transactionsRes, nil)
 
 		th.HandleGetTransactions(c)
 
@@ -88,7 +88,7 @@ func TestHandleGetTransactions(t *testing.T) {
 		resBody, _ := json.Marshal(expectedErr.ToErrorRes())
 		tu := mocks.NewTransactionUsecase(t)
 		th := handler.NewTransactionHandler(tu)
-		tu.On("GetTransactions", mock.Anything, mock.AnythingOfType("dto.ListTransactionsReq")).Return(nil, expectedErr)
+		tu.On("GetTransactions", mock.Anything, mock.AnythingOfType("dto.ListTransactionsReq"), mock.Anything).Return(nil, expectedErr)
 		opts := server.RouterOpts{
 			TransactionHandler: th,
 		}

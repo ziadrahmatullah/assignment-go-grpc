@@ -1,11 +1,13 @@
 package main
 
 import (
+	"context"
 	"log"
 	"net"
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 
 	"git.garena.com/sea-labs-id/bootcamp/batch-02/ziad-rahmatullah/assignment-go-rest-api/appvalidator"
 	"git.garena.com/sea-labs-id/bootcamp/batch-02/ziad-rahmatullah/assignment-go-rest-api/database"
@@ -23,7 +25,7 @@ func main() {
 		log.Println("no env got")
 	}
 	db, err := database.ConnectDB()
-	if err != nil{
+	if err != nil {
 		log.Println(err.Error())
 	}
 	v := appvalidator.NewAppValidatorImpl()
@@ -69,6 +71,17 @@ func main() {
 		}
 	}()
 	log.Println("server started")
+
 	<-signCh
+
+	log.Println("stopping server")
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	server.GracefulStop()
+
+	<-ctx.Done()
+
 	log.Println("server stopped")
 }

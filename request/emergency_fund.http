@@ -11,8 +11,8 @@ proto < ./../proto/calculator.proto
 GRPC /EmergencyFundsService/CalculateEmergencyFunds
 ...defaultHeaders
 {
-    "monthlyIncome": "4000",
-    "monthlyExpense": "3500000",
+    "monthlyIncome": "8000000",
+    "monthlyExpense": "4500000",
     "financialResponsibilities": "0",
     "maritalStatus": "Single",
     "numberOfChildren": 0

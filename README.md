@@ -16,4 +16,12 @@ Unit Test Coverage:
 - Usecase : 100%
 - Util : 100%
 
+How To Use Code:
+1. Run the third party server: ./cmd/calculator/api_linux
+2. Run the GRPC server: go run cmd/grpc/main.go
+3. Open /request/auth.http
+4. Can do register and login
+5. After login, you will get access token
+6. Copy that token to another http file in default header for using that file
+
 Documentation : https://documenter.getpostman.com/view/31472691/2s9YeN1U24

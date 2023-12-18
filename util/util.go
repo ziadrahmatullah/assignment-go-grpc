@@ -24,10 +24,7 @@ func RemoveNewLine(str string) string {
 
 func GenerateRandomString() string {
 	b := make([]byte, 8)
-	_, err := rand.Read(b)
-	if err != nil {
-		panic(err)
-	}
+	rand.Read(b)
 	return base64.StdEncoding.EncodeToString(b)
 }
 
