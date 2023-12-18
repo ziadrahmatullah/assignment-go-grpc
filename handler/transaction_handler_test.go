@@ -28,6 +28,13 @@ var transactions = []model.Transaction{
 		Receiver:        "7000000000002",
 		Amount:          decimal.NewFromInt(int64(10000)),
 	},
+	{
+		WalletId:        1,
+		TransactionType: "TopUp",
+		SourceOfFund:    nil,
+		Receiver:        "7000000000002",
+		Amount:          decimal.NewFromInt(int64(10000)),
+	},
 }
 
 var transactionsRes = dto.TransactionPaginationRes{

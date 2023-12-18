@@ -1,4 +1,4 @@
-# assignment-go-rest-api
+# assignment-go-grpc
 
 Asumsi:
 - reset expire 1 menit
@@ -12,9 +12,9 @@ Asumsi:
 Seeding: /sql
 
 Unit Test Coverage:
-- Handler : 100%
+- Handler : 93.8%
 - Usecase : 100%
-- Util : 100%
+- Util : 31.9%
 
 How To Use Code:
 1. Run the third party server: ./cmd/calculator/api_linux
