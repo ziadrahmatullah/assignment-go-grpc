@@ -1,7 +1,7 @@
 proto < ./../proto/calculator.proto
 @host=localhost:50051
 {{+
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJpc3MiOiJsb2NhbGhvc3QiLCJleHAiOjE3MDI5MTMzNjgsImlhdCI6MTcwMjkwOTc2OH0.PihPGiC6Hbnpv1CBTvijiQc8NeXpJXivNkI8kAVnYAg"
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJpc3MiOiJsb2NhbGhvc3QiLCJleHAiOjE3MDI5MjE5MjYsImlhdCI6MTcwMjkxODMyNn0.IUP7N71AGjle05iUe6J7fhCO6gG6MldDzuG3-63t7ws"
   exports.defaultHeaders = {
     'Content-Type': 'text/html',
     'Authorization': `Bearer ${token}`

@@ -1,7 +1,7 @@
 proto < ../proto/transaction.proto
 @host=localhost:50051
 {{+
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJpc3MiOiJsb2NhbGhvc3QiLCJleHAiOjE3MDI5MDA1MzAsImlhdCI6MTcwMjg5NjkzMH0.fWoi-92623FE1YSVWldYAQPlJ6evbQ57U8y1Zn26uMU"
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJpc3MiOiJsb2NhbGhvc3QiLCJleHAiOjE3MDI5MjE5MjYsImlhdCI6MTcwMjkxODMyNn0.IUP7N71AGjle05iUe6J7fhCO6gG6MldDzuG3-63t7ws"
   exports.defaultHeaders = {
     'Content-Type': 'text/html',
     'Authorization': `Bearer ${token}`
