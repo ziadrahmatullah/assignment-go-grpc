@@ -11,17 +11,14 @@ import (
 )
 
 func CalculateThirdService(req dto.EmergencyFundsReq) (*pb.CalculateEmergencyFundsResponse, error) {
-	// Set up the gRPC client to connect to the server
 	conn, err := grpc.Dial("localhost:8081", grpc.WithInsecure())
 	if err != nil {
 		return nil, apperror.ErrCantConnectToThirdParty
 	}
 	defer conn.Close()
 
-	// Create a gRPC client
 	client := pb.NewCalculatorServiceClient(conn)
 
-	// Prepare the request message
 	userReq := &pb.CalculateEmergencyFundsRequest{
 		MonthlyIncome:             req.MonthlyIncome.String(),
 		MonthlyExpense:            req.MonthlyExpense.String(),
@@ -31,7 +28,6 @@ func CalculateThirdService(req dto.EmergencyFundsReq) (*pb.CalculateEmergencyFun
 
 	ctx := context.Background()
 
-	// Send the request to the server
 	res, err := client.CalculateEmergencyFunds(ctx, userReq)
 	if err != nil {
 		return nil, apperror.ErrFailedToRequstThirdParty

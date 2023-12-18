@@ -1,7 +1,7 @@
 proto < ./../proto/calculator.proto
 @host=localhost:50051
 {{+
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJpc3MiOiJsb2NhbGhvc3QiLCJleHAiOjE3MDI5MDMyODYsImlhdCI6MTcwMjg5OTY4Nn0.SIVh3DwKdF4xEk9wlwUbZb3O7lzSUp0E2IzPFns92E0"
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJpc3MiOiJsb2NhbGhvc3QiLCJleHAiOjE3MDI5MTMzNjgsImlhdCI6MTcwMjkwOTc2OH0.PihPGiC6Hbnpv1CBTvijiQc8NeXpJXivNkI8kAVnYAg"
   exports.defaultHeaders = {
     'Content-Type': 'text/html',
     'Authorization': `Bearer ${token}`
@@ -11,7 +11,7 @@ proto < ./../proto/calculator.proto
 GRPC /EmergencyFundsService/CalculateEmergencyFunds
 ...defaultHeaders
 {
-    "monthlyIncome": "5000000",
+    "monthlyIncome": "4000",
     "monthlyExpense": "3500000",
     "financialResponsibilities": "0",
     "maritalStatus": "Single",

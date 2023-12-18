@@ -5,11 +5,11 @@ import (
 
 	"git.garena.com/sea-labs-id/bootcamp/batch-02/ziad-rahmatullah/assignment-go-rest-api/client"
 	"git.garena.com/sea-labs-id/bootcamp/batch-02/ziad-rahmatullah/assignment-go-rest-api/dto"
-	pb "git.garena.com/sea-labs-id/bootcamp/batch-02/ziad-rahmatullah/assignment-go-rest-api/pb/emergency-funds"
+	proto "git.garena.com/sea-labs-id/bootcamp/batch-02/ziad-rahmatullah/assignment-go-rest-api/pb"
 )
 
 type EmergencyFundsUsecase interface {
-	CalculateEmergencyFuns(context.Context, dto.EmergencyFundsReq) (*pb.CalculateEmergencyFundsResponse, error)
+	CalculateEmergencyFunds(context.Context, dto.EmergencyFundsReq) (*proto.EmergencyFundsRes, error)
 }
 
 type emergencyFundsUsecase struct {
@@ -19,6 +19,13 @@ func NewEmergencyFundsUsecase() EmergencyFundsUsecase {
 	return &emergencyFundsUsecase{}
 }
 
-func (eu *emergencyFundsUsecase) CalculateEmergencyFuns(ctx context.Context, req dto.EmergencyFundsReq) (*pb.CalculateEmergencyFundsResponse, error) {
-	return client.CalculateThirdService(req)
+func (eu *emergencyFundsUsecase) CalculateEmergencyFunds(ctx context.Context, req dto.EmergencyFundsReq) (*proto.EmergencyFundsRes, error) {
+	res, err := client.CalculateThirdService(req)
+	if err != nil {
+		return nil, err
+	}
+	return &proto.EmergencyFundsRes{
+		RecommendedFunds: res.RecommendedFunds,
+		MaritalStatus:    res.MaritalStatus.String(),
+	}, nil
 }

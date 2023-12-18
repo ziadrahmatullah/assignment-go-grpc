@@ -56,7 +56,7 @@ func (eh *EmerGencyFundsGRPCHandler) CalculateEmergencyFunds(ctx context.Context
 	if !util.IsValidNumChildren(int32(*userReq.NumberOfChildren), userReq.MaritalStatus) {
 		return nil, apperror.ErrInvalidChildren
 	}
-	if !util.IsValidDecimal(userReq.MonthlyIncome) {
+	if !util.IsValidMonthlyIncome(userReq.MonthlyIncome) {
 		return nil, apperror.ErrInvalidMonthlyIncome
 	}
 	if !util.IsValidDecimal(userReq.MonthlyExpense) {
@@ -65,12 +65,9 @@ func (eh *EmerGencyFundsGRPCHandler) CalculateEmergencyFunds(ctx context.Context
 	if !util.IsValidDecimal(userReq.FinancialResponsibilities) {
 		return nil, apperror.ErrInvalidFinancialAbilities
 	}
-	res, err := eh.usecase.CalculateEmergencyFuns(ctx, userReq)
+	res, err := eh.usecase.CalculateEmergencyFunds(ctx, userReq)
 	if err != nil {
 		return nil, err
 	}
-	return &pb.EmergencyFundsRes{
-		RecommendedFunds: res.RecommendedFunds,
-		MaritalStatus:    res.MaritalStatus.String(),
-	}, nil
+	return res, nil
 }
