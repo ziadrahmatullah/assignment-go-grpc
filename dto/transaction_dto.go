@@ -18,13 +18,13 @@ type ListTransactionsReq struct {
 }
 
 type TopUpReq struct {
-	Amount       decimal.Decimal `binding:"required,min=50000,max=10000000" json:"amount"`
-	SourceOfFund string          `binding:"required" json:"source_of_fund"`
+	Amount       decimal.Decimal `binding:"required,min=50000,max=10000000" json:"amount" validate:"required,min=50000,max=10000000"`
+	SourceOfFund string          `binding:"required" json:"source_of_fund" validate:"required"`
 }
 
 type TransferReq struct {
-	WalletNumber string          `binding:"required" json:"to"`
-	Amount       decimal.Decimal `binding:"required,min=1000,max=50000000" json:"amount"`
+	WalletNumber string          `binding:"required" json:"to" validate:"required"`
+	Amount       decimal.Decimal `binding:"required,min=1000,max=50000000" json:"amount" validate:"required,min=1000,max=50000000"`
 	Description  string          `json:"description,omitempty"`
 }
 

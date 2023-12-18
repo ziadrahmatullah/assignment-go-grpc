@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package game;
+
+option go_package = "./pb";
+
+message GameBoxesReq{
+
+}
+
+message GameBox{
+    uint32 id = 1;
+}
+
+message GameBoxesRes{
+    repeated GameBox boxes = 1;
+}
+
+message AttemptReq{
+
+}
+
+message AttemptRes{
+    int32 remaining_attempt = 1;
+}
+
+message ChooseBoxReq{
+    uint32 box_id = 1;
+}
+
+message ChooseBoxRes{
+    string reward_amount = 1;
+}
+
+service GameService{
+    rpc GetAllBoxes (GameBoxesReq) returns (GameBoxesReq);
+    rpc GetRemainingAttempt (AttemptReq) returns (AttemptReq);
+    rpc ChooseBox (ChooseBoxReq) returns (ChooseBoxRes);
+}
