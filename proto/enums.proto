@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+option go_package = "./pb/emergency-funds";
+
+enum MaritalStatus {
+    MARITAL_STATUS_UNSPECIFIED = 0;
+    MARITAL_STATUS_SINGLE = 1;
+    MARITAL_STATUS_MARRIED = 2;
+}

@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v3.12.4
-// source: proto/reset_password.proto
+// source: reset_password.proto
 
 package pb
 
@@ -137,5 +137,5 @@ var ResetPasswordService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "proto/reset_password.proto",
+	Metadata: "reset_password.proto",
 }

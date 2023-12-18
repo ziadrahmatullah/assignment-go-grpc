@@ -1,0 +1,32 @@
+proto < ./../proto/calculator_service.proto
+@host=http://localhost:8082
+
+###
+GRPC /CalculatorService/CalculateEmergencyFunds 
+{
+    "monthlyIncome": "5000000",
+    "monthlyExpense": "3500000",
+    "financialResponsibilities": "0",
+    "maritalStatus": 1,
+    "numberOfChildren": 0
+}
+
+###
+GRPC /CalculatorService/CalculateEmergencyFunds 
+{
+    "monthlyIncome": "5000000",
+    "monthlyExpense": "3500000",
+    "financialResponsibilities": "0",
+    "maritalStatus": 2,
+    "numberOfChildren": 1
+}
+
+###
+GRPC /CalculatorService/CalculateEmergencyFunds 
+{
+    "monthlyIncome": "5000000",
+    "monthlyExpense": "2500000",
+    "financialResponsibilities": "1000000",
+    "maritalStatus": 2,
+    "numberOfChildren": 3
+}
