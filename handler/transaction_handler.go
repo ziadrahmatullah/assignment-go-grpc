@@ -30,7 +30,8 @@ func (h *TransactionHandler) HandleGetTransactions(ctx *gin.Context) {
 	req.SortType = GetStringQueryParam(ctx, "sort")
 	req.PaginationLimit = GetStringQueryParam(ctx, "limit")
 	req.PaginationPage = GetStringQueryParam(ctx, "page")
-	transactionsRes, err := h.tu.GetTransactions(ctx, req)
+	reqContext := dto.CreateContext(ctx)
+	transactionsRes, err := h.tu.GetTransactions(ctx, req, reqContext.UserID)
 	if err != nil {
 		ctx.Error(err)
 		return

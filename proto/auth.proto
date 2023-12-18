@@ -15,18 +15,16 @@ message LoginRes {
 
 message RegisterReq{
   string name = 1;
-  string current_job = 2;
-  int32 age = 3;
-  string email = 4;
-  string password = 5;
+  string birthdate = 2;
+  string email = 3;
+  string password =4 ;
 }
 
 message RegisterRes{
   uint32 id = 1;
   string name = 2;
-  string current_job = 3;
-  int32 age = 4;
-  string email = 5;
+  string birthdate = 3;
+  string email = 4;
 }
 
 message UserDetailsReq{}

@@ -4,15 +4,15 @@ package transaction;
 
 option go_package = "./pb";
 
-// message ListTransactionReq{
-//     string search = 1;
-//     string filter_start = 2;
-//     string filter_end = 3;
-//     string sort_by = 4;
-//     string sort_type = 5;
-//     string pagination_limit = 6;
-//     string pagination_page = 7;
-// }
+message TransactionsReq {
+    string search = 1;
+    string filter_start = 2;
+    string filter_end = 3;
+    string sort_by = 4;
+    string sort_type = 5;
+    string pagination_limit = 6;
+    string pagination_page = 7;
+  }
 
 message TopUpReq{
     string amount = 1;
@@ -47,16 +47,16 @@ message TransactionRes{
     string description = 8;
 }
 
-message TransactionsReq{
-
-}
-
-message TransactionsRes{
-    repeated TransactionRes transactions = 1;
+message TransactionPaginationRes{
+    repeated TransactionRes data = 1;
+    int32 total_date = 2;
+    int32 total_page = 3;
+    int32 page = 4;
 }
 
 service TransactionService{
-    rpc GetAllTransactions(TransactionsReq) returns (TransactionsRes);
+    rpc GetAllTransactions(TransactionsReq) returns (TransactionPaginationRes);
     rpc Transfer(TransferReq) returns (TransactionRes);
     rpc TopUp(TopUpReq) returns (TransactionRes);
 }
+

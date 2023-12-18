@@ -1,6 +1,9 @@
 package dto
 
-import "github.com/gin-gonic/gin"
+import (
+	"git.garena.com/sea-labs-id/bootcamp/batch-02/ziad-rahmatullah/assignment-go-rest-api/model"
+	"github.com/gin-gonic/gin"
+)
 
 type Response struct {
 	Message string `json:"message,omitempty"`
@@ -8,7 +11,7 @@ type Response struct {
 }
 
 type TransactionPaginationRes struct {
-	Data      any `json:"data,omitempty"`
+	Data      []model.Transaction `json:"data,omitempty"`
 	TotalData int `json:"total_data"`
 	TotalPage int `json:"total_page"`
 	Page      int `json:"page"`

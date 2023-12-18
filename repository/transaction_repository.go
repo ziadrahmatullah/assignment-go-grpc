@@ -15,7 +15,7 @@ import (
 )
 
 type TransactionRepository interface {
-	FindListTransaction(context.Context, dto.ListTransactionsReq) (*dto.TransactionPaginationRes, error)
+	FindListTransaction(context.Context, dto.ListTransactionsReq, uint) (*dto.TransactionPaginationRes, error)
 	TopUpTransaction(context.Context, model.Transaction) (*model.Transaction, error)
 	TransferTransaction(context.Context, model.Transaction) (*model.Transaction, error)
 }
@@ -41,10 +41,10 @@ func NewTransactionRepository(db *gorm.DB) TransactionRepository {
 	}
 }
 
-func (tr *transactionRepository) FindListTransaction(ctx context.Context, req dto.ListTransactionsReq) (*dto.TransactionPaginationRes, error) {
-	raw := "SELECT * FROM transactions "
+func (tr *transactionRepository) FindListTransaction(ctx context.Context, req dto.ListTransactionsReq, uid uint) (*dto.TransactionPaginationRes, error) {
+	raw := fmt.Sprintf("SELECT * FROM transactions where id = %d", uid)
 	searchSql := tr.SearchTransaction(req.Search)
-	filterSql, err := tr.FilterTransaction(req.FilterStart, req.FilterEnd, searchSql)
+	filterSql, err := tr.FilterTransaction(req.FilterStart, req.FilterEnd)
 	if err != nil {
 		return nil, err
 	}
@@ -86,11 +86,11 @@ func (tr *transactionRepository) SearchTransaction(word *string) (sql string) {
 		return ""
 	}
 	raw := "%" + *word + "%"
-	sql = fmt.Sprintf("WHERE description ILIKE '%s' ", raw)
+	sql = fmt.Sprintf("AND description ILIKE '%s' ", raw)
 	return
 }
 
-func (tr *transactionRepository) FilterTransaction(start, end *string, prevSql string) (sql string, err error) {
+func (tr *transactionRepository) FilterTransaction(start, end *string) (sql string, err error) {
 	if (start == nil || *start == "") && (end == nil || *end == "") {
 		return "", nil
 	}
@@ -108,11 +108,7 @@ func (tr *transactionRepository) FilterTransaction(start, end *string, prevSql s
 	if err != nil {
 		return "", apperror.ErrWrongEndDateFormat
 	}
-	if prevSql == "" {
-		sql = fmt.Sprintf("WHERE created_at BETWEEN '%s' AND '%s' ", *start, *end)
-	} else {
-		sql = fmt.Sprintf("AND created_at BETWEEN '%s' AND '%s' ", *start, *end)
-	}
+	sql = fmt.Sprintf("AND created_at BETWEEN '%s' AND '%s' ", *start, *end)
 	return sql, nil
 }
 

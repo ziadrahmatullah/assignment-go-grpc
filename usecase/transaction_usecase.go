@@ -10,7 +10,7 @@ import (
 )
 
 type TransactionUsecase interface {
-	GetTransactions(context.Context, dto.ListTransactionsReq) (*dto.TransactionPaginationRes, error)
+	GetTransactions(context.Context, dto.ListTransactionsReq, uint) (*dto.TransactionPaginationRes, error)
 	TopUp(context.Context, dto.TopUpReq, uint) (*model.Transaction, error)
 	Transfer(context.Context, dto.TransferReq, uint) (*model.Transaction, error)
 }
@@ -27,8 +27,8 @@ func NewTransactionUsecase(tr repository.TransactionRepository, wr repository.Wa
 	}
 }
 
-func (tu *transactionUsecase) GetTransactions(ctx context.Context, req dto.ListTransactionsReq) (transactions *dto.TransactionPaginationRes, err error) {
-	return tu.tr.FindListTransaction(ctx, req)
+func (tu *transactionUsecase) GetTransactions(ctx context.Context, req dto.ListTransactionsReq, uid uint) (transactions *dto.TransactionPaginationRes, err error) {
+	return tu.tr.FindListTransaction(ctx, req, uid)
 }
 
 func (tu *transactionUsecase) TopUp(ctx context.Context, req dto.TopUpReq, userId uint) (transaction *model.Transaction, err error) {

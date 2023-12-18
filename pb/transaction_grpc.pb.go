@@ -22,7 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type TransactionServiceClient interface {
-	GetAllTransactions(ctx context.Context, in *TransactionsReq, opts ...grpc.CallOption) (*TransactionsRes, error)
+	GetAllTransactions(ctx context.Context, in *TransactionsReq, opts ...grpc.CallOption) (*TransactionPaginationRes, error)
 	Transfer(ctx context.Context, in *TransferReq, opts ...grpc.CallOption) (*TransactionRes, error)
 	TopUp(ctx context.Context, in *TopUpReq, opts ...grpc.CallOption) (*TransactionRes, error)
 }
@@ -35,8 +35,8 @@ func NewTransactionServiceClient(cc grpc.ClientConnInterface) TransactionService
 	return &transactionServiceClient{cc}
 }
 
-func (c *transactionServiceClient) GetAllTransactions(ctx context.Context, in *TransactionsReq, opts ...grpc.CallOption) (*TransactionsRes, error) {
-	out := new(TransactionsRes)
+func (c *transactionServiceClient) GetAllTransactions(ctx context.Context, in *TransactionsReq, opts ...grpc.CallOption) (*TransactionPaginationRes, error) {
+	out := new(TransactionPaginationRes)
 	err := c.cc.Invoke(ctx, "/transaction.TransactionService/GetAllTransactions", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -66,7 +66,7 @@ func (c *transactionServiceClient) TopUp(ctx context.Context, in *TopUpReq, opts
 // All implementations must embed UnimplementedTransactionServiceServer
 // for forward compatibility
 type TransactionServiceServer interface {
-	GetAllTransactions(context.Context, *TransactionsReq) (*TransactionsRes, error)
+	GetAllTransactions(context.Context, *TransactionsReq) (*TransactionPaginationRes, error)
 	Transfer(context.Context, *TransferReq) (*TransactionRes, error)
 	TopUp(context.Context, *TopUpReq) (*TransactionRes, error)
 	mustEmbedUnimplementedTransactionServiceServer()
@@ -76,7 +76,7 @@ type TransactionServiceServer interface {
 type UnimplementedTransactionServiceServer struct {
 }
 
-func (UnimplementedTransactionServiceServer) GetAllTransactions(context.Context, *TransactionsReq) (*TransactionsRes, error) {
+func (UnimplementedTransactionServiceServer) GetAllTransactions(context.Context, *TransactionsReq) (*TransactionPaginationRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllTransactions not implemented")
 }
 func (UnimplementedTransactionServiceServer) Transfer(context.Context, *TransferReq) (*TransactionRes, error) {

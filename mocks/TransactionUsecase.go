@@ -16,13 +16,13 @@ type TransactionUsecase struct {
 	mock.Mock
 }
 
-// GetTransactions provides a mock function with given fields: _a0, _a1
-func (_m *TransactionUsecase) GetTransactions(_a0 context.Context, _a1 dto.ListTransactionsReq) (*dto.TransactionPaginationRes, error) {
-	ret := _m.Called(_a0, _a1)
+// GetTransactions provides a mock function with given fields: _a0, _a1, _a2
+func (_m *TransactionUsecase) GetTransactions(_a0 context.Context, _a1 dto.ListTransactionsReq, _a2 uint) (*dto.TransactionPaginationRes, error) {
+	ret := _m.Called(_a0, _a1, _a2)
 
 	var r0 *dto.TransactionPaginationRes
-	if rf, ok := ret.Get(0).(func(context.Context, dto.ListTransactionsReq) *dto.TransactionPaginationRes); ok {
-		r0 = rf(_a0, _a1)
+	if rf, ok := ret.Get(0).(func(context.Context, dto.ListTransactionsReq, uint) *dto.TransactionPaginationRes); ok {
+		r0 = rf(_a0, _a1, _a2)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*dto.TransactionPaginationRes)
@@ -30,8 +30,8 @@ func (_m *TransactionUsecase) GetTransactions(_a0 context.Context, _a1 dto.ListT
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(context.Context, dto.ListTransactionsReq) error); ok {
-		r1 = rf(_a0, _a1)
+	if rf, ok := ret.Get(1).(func(context.Context, dto.ListTransactionsReq, uint) error); ok {
+		r1 = rf(_a0, _a1, _a2)
 	} else {
 		r1 = ret.Error(1)
 	}
